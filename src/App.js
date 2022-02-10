@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 //import components
 import Movie from "./components/Movie";
 import Filter from "./components/Filter";
+import NavBar from "./components/navBar";
 
 function App() {
   const [popular, setPopular] = useState([]);
@@ -25,16 +26,19 @@ function App() {
 
   return (
     <div className="App">
-      <Filter
-        popular={popular}
-        setFiltered={setFiltered}
-        activeGenre={activeGenre}
-        setActiveGenre={setActiveGenre}
-      />
-      <div className="popular-movies">
-        {filtered.map((movie) => {
-          return <Movie key={movie.id} movie={movie} />;
-        })}
+      <NavBar />
+      <div className="content-body">
+        <Filter
+          popular={popular}
+          setFiltered={setFiltered}
+          activeGenre={activeGenre}
+          setActiveGenre={setActiveGenre}
+        />
+        <div className="popular-movies">
+          {filtered.map((movie) => {
+            return <Movie key={movie.id} movie={movie} />;
+          })}
+        </div>
       </div>
     </div>
   );
