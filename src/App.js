@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Movie from "./components/Movie";
 import Filter from "./components/Filter";
 import NavBar from "./components/navBar";
+import { motion } from "framer-motion";
 
 function App() {
   const [popular, setPopular] = useState([]);
@@ -34,11 +35,11 @@ function App() {
           activeGenre={activeGenre}
           setActiveGenre={setActiveGenre}
         />
-        <div className="popular-movies">
+        <motion.div layout className="popular-movies">
           {filtered.map((movie) => {
             return <Movie key={movie.id} movie={movie} />;
           })}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
