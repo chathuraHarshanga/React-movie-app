@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 //import components
 import Movie from "./components/Movie";
 import Filter from "./components/Filter";
+import NavBar from "./components/navBar";
+import { motion } from "framer-motion";
 
 function App() {
   const [popular, setPopular] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [activeGenre, setActiveGenre] = useState(0);
 
   useEffect(() => {
     fetchPopular();
@@ -18,16 +22,24 @@ function App() {
     );
     const movies = await data.json();
     setPopular(movies.results);
+    setFiltered(movies.results);
   };
 
   return (
     <div className="App">
-      <Filter />
-      <div className="popular-movies">
-        {popular.map((movie) => {
-          console.log(movie);
-          return <Movie key={movie.id} movie={movie} />;
-        })}
+      <NavBar />
+      <div className="content-body">
+        <Filter
+          popular={popular}
+          setFiltered={setFiltered}
+          activeGenre={activeGenre}
+          setActiveGenre={setActiveGenre}
+        />
+        <motion.div layout className="popular-movies">
+          {filtered.map((movie) => {
+            return <Movie key={movie.id} movie={movie} />;
+          })}
+        </motion.div>
       </div>
     </div>
   );
